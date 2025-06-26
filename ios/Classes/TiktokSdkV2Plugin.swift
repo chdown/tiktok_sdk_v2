@@ -5,7 +5,7 @@ import TikTokOpenSDKCore
 
 public class TiktokSdkV2Plugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "com.tofinds/tiktok_sdk_v2", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "com.tofinds.tiktok_sdk_v2", binaryMessenger: registrar.messenger())
     let instance = TiktokSdkV2Plugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
     registrar.addApplicationDelegate(instance)
