@@ -22,7 +22,7 @@ class TiktokSdkV2Plugin: FlutterPlugin, MethodCallHandler, ActivityAware, Plugin
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
-  private lateinit var authApi: AuthApi
+  private var authApi: AuthApi? = null
 
   var activity: Activity? = null
   private var activityPluginBinding: ActivityPluginBinding? = null
@@ -77,7 +77,7 @@ class TiktokSdkV2Plugin: FlutterPlugin, MethodCallHandler, ActivityAware, Plugin
          AuthApi.AuthMethod.TikTokApp
        }
         // var authType = AuthApi.AuthMethod.ChromeTab
-        authApi.authorize(request, authType)
+        authApi?.authorize(request, authType)
         loginResult = result
       }
       else -> result.notImplemented()
@@ -117,7 +117,7 @@ class TiktokSdkV2Plugin: FlutterPlugin, MethodCallHandler, ActivityAware, Plugin
   }
 
   override fun onNewIntent(intent: Intent): Boolean {
-    authApi.getAuthResponseFromIntent(intent, redirectUrl = redirectUrl)?.let {
+    authApi?.getAuthResponseFromIntent(intent, redirectUrl = redirectUrl)?.let {
       val authCode = it.authCode
       if (authCode.isNotEmpty()) {
         var resultMap = mapOf(
